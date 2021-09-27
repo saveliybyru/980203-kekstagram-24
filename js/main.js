@@ -1,5 +1,5 @@
 
-function getRandomNumber (minValue, maxValue){
+const getRandomNumber = (minValue, maxValue) => {
   const min = Math.ceil(minValue);
   const max = Math.floor(maxValue);
 
@@ -16,14 +16,14 @@ function getRandomNumber (minValue, maxValue){
   }
 
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};
 
 getRandomNumber(10, 15);
 
 
-function getCorrectLength(actualLength, maxLength){
+const getCorrectLength = (actualLength, maxLength) => {
   const result = maxLength >= actualLength;
   return result;
-}
+};
 
 getCorrectLength(150, 140);
