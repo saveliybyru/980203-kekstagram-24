@@ -1,5 +1,5 @@
 
-const MAX_PHOTOS=25;
+const MAX_PHOTOS = 25;
 const NAMES = [
   'Савелий',
   'Иван',
@@ -12,7 +12,6 @@ const NAMES = [
   'Люпита',
   'Вашингтон',
 ];
-
 const MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо.',
@@ -25,11 +24,11 @@ const MESSAGES = [
   'Как можно было поймать такой неудачный момент?!',
 ];
 
-
 const getCorrectLength = (actualLength, maxLength) => {
   const result = maxLength >= actualLength;
   return result;
 };
+
 const getRandomNumber = (minValue, maxValue) => {
   const min = Math.ceil(minValue);
   const max = Math.floor(maxValue);
@@ -38,20 +37,20 @@ const getRandomNumber = (minValue, maxValue) => {
     return 'Вы ввели отрицательное число, выбор только из положительных';
   }
 
-  if (min === max){
+  if (min === max) {
     return min;
   }
 
-  if (min > max){
+  if (min > max) {
     return `Вы ввели неверно диапазон. Случайное число из диапазона от ${max} до ${min}: ${Math.floor(Math.random() * (min - max + 1)) + max}`;
   }
 
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const MAX_COMMENTS = getRandomNumber(1, 90);
+const maxComments = getRandomNumber(1, 90);
 
-const createCommentObject = (id) =>{
+const createCommentObject = (id) => {
   const avatar = `img/avatar-${getRandomNumber(1, 6)}.svg`;
   const quote = MESSAGES[getRandomNumber(0, MESSAGES.length - 1)];
   const name = NAMES[getRandomNumber(0, NAMES.length - 1)];
@@ -64,14 +63,14 @@ const createCommentObject = (id) =>{
     name,
   };
 };
-const createCommentObjects = (photoId) =>{
+
+const createCommentObjects = (photoId) => {
   const comments = [];
-  for (let id = 0; id < MAX_COMMENTS+1; id++){
+  for (let id = 0; id < maxComments+1; id++) {
     comments.push(createCommentObject(id + String(`${photoId}`)));
   }
   return comments;
 };
-
 
 const createPhotoObject = (id) => {
   const url = `photos/${id}.jpg`;
@@ -81,9 +80,10 @@ const createPhotoObject = (id) => {
     id,
     url,
     description:'Случайное описание фото',
-    likes:likes,
+    likes,
     comments: createCommentObjects(id)};
 };
+
 const createPhotoObjects = () => {
   const photos = [];
   for (let id = 1; id < MAX_PHOTOS+1; id++) {
@@ -91,7 +91,6 @@ const createPhotoObjects = () => {
   }
   return photos;
 };
-
 
 getCorrectLength(150, 140);
 createPhotoObjects();
