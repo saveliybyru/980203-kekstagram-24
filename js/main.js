@@ -84,15 +84,13 @@ const createPhotoObject = (id) => {
     comments: createCommentObjects(id)};
 };
 
-const createPhotoObjects = () => {
+const createPhotoObjects = (maxPhotos) => {
   const photos = [];
-  for (let id = 1; id < MAX_PHOTOS+1; id++) {
+  for (let id = 1; id < maxPhotos+1; id++) {
     photos.push(createPhotoObject(id));
   }
   return photos;
 };
 
 getCorrectLength(150, 140);
-createPhotoObjects();
-
-
+createPhotoObjects(MAX_PHOTOS);
