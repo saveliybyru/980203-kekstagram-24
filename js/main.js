@@ -1,7 +1,4 @@
-import {createPhotoObjects} from './blank-photos.js';
-
-
-const MAX_PHOTOS = 25;
+import './template-photos.js';
 
 const getCorrectLength = (actualLength, maxLength) => {
   const result = maxLength >= actualLength;
@@ -10,4 +7,3 @@ const getCorrectLength = (actualLength, maxLength) => {
 
 
 getCorrectLength(150, 140);
-createPhotoObjects(MAX_PHOTOS);
