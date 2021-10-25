@@ -9,3 +9,4 @@ const photos = createPhotoObjects(MAX_PHOTOS);
 
 getCorrectLength(150, 140);
 renderPhotos(photos);
+

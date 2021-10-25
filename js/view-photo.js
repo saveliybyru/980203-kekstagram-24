@@ -3,6 +3,7 @@ const photoView = document.querySelector('.big-picture');
 const commentsContainerElement = photoView.querySelector('.social__comments');
 const closeModal = photoView.querySelector('.big-picture__cancel');
 const commentLoader = photoView.querySelector('.comments-loader');
+const commentTemplate = document.querySelector('#comment').content;
 
 const isEscape = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
@@ -16,6 +17,26 @@ const pressEsc = (evt) => {
 
     document.removeEventListener('keydown', pressEsc);
   }
+};
+
+
+const openBigPicture = (photo) => {
+  const likesCount = document.querySelector('.likes-count');
+  const commentCounter = document.querySelector('.comments-count');
+  const photoDescription = document.querySelector('.social__caption');
+  photoView.querySelector('.big-picture__img img').src = photo.url;
+  likesCount.textContent = photo.likes;
+  commentCounter.textContent = photo.comments.length;
+  photoDescription.textContent = photo.description;
+
+  photo.comments.forEach((comment) => {
+    const commentElement = commentTemplate.cloneNode(true);
+    const commentAvatar = commentElement.querySelector('.social__picture');
+    commentAvatar.src = comment.avatar;
+    commentAvatar.alt = comment.name;
+    commentElement.querySelector('.social__text').textContent = comment.message;
+    commentsContainerElement.append(commentElement);
+  });
 };
 
 photosBox.addEventListener('click', () => {
@@ -36,24 +57,5 @@ closeModal.addEventListener('click', () => {
   document.removeEventListener('keydown', pressEsc);
 });
 
-
-const openBigPicture = (photo) => {
-  const likesCount = document.querySelector('.likes-count');
-  const commentCounter = document.querySelector('.comments-count');
-  const photoDescription = document.querySelector('.social__caption');
-  photoView.querySelector('.big-picture__img img').src = photo.url;
-  likesCount.textContent = photo.likes;
-  commentCounter.textContent = photo.comments.length;
-  photoDescription.textContent = photo.description;
-
-  photo.comments.forEach((comment) => {
-    const commentTemplate = document.querySelector('#comment').content;
-    const commentElement = commentTemplate.cloneNode(true);
-    commentElement.querySelector('.social__picture').setAttribute('src', comment.avatar);
-    commentElement.querySelector('.social__picture').setAttribute('alt', comment.name);
-    commentElement.querySelector('.social__text').textContent = comment.message;
-    commentsContainerElement.append(commentElement);
-  });
-};
 
 export {openBigPicture};
