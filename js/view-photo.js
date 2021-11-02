@@ -1,9 +1,7 @@
-const photosBox = document.querySelector('.pictures');
+import { renderComments } from './view-comment.js';
 const photoView = document.querySelector('.big-picture');
-const commentsContainerElement = photoView.querySelector('.social__comments');
 const closeModal = photoView.querySelector('.big-picture__cancel');
 const commentLoader = photoView.querySelector('.comments-loader');
-const commentTemplate = document.querySelector('#comment').content;
 
 const isEscape = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
@@ -29,23 +27,13 @@ const openBigPicture = (photo) => {
   commentCounter.textContent = photo.comments.length;
   photoDescription.textContent = photo.description;
 
-  photo.comments.forEach((comment) => {
-    const commentElement = commentTemplate.cloneNode(true);
-    const commentAvatar = commentElement.querySelector('.social__picture');
-    commentAvatar.src = comment.avatar;
-    commentAvatar.alt = comment.name;
-    commentElement.querySelector('.social__text').textContent = comment.message;
-    commentsContainerElement.append(commentElement);
-  });
-};
-
-photosBox.addEventListener('click', () => {
   photoView.classList.remove('hidden');
   commentLoader.classList.add('hidden');
   document.body.classList.add('modal-open');
-
   document.addEventListener('keydown', pressEsc);
-});
+
+  photo.comments.forEach((comment) => renderComments(comment));
+};
 
 
 closeModal.addEventListener('click', () => {

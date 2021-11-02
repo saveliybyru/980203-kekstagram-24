@@ -2,6 +2,7 @@ import {createPhotoObjects} from './blank-photos.js';
 import {getCorrectLength} from './length-checker.js';
 import {renderPhotos} from './template-photos.js';
 import './view-photo.js';
+import './form.js';
 
 
 const MAX_PHOTOS = 25;
