@@ -12,7 +12,6 @@ const pressEsc = (evt) => {
     photoView.classList.add('hidden');
     commentLoader.classList.remove('hidden');
     document.body.classList.remove('modal-open');
-
     document.removeEventListener('keydown', pressEsc);
   }
 };
@@ -40,8 +39,6 @@ closeModal.addEventListener('click', () => {
   photoView.classList.add('hidden');
   commentLoader.classList.remove('hidden');
   document.body.classList.remove('modal-open');
-
-
   document.removeEventListener('keydown', pressEsc);
 });
 
