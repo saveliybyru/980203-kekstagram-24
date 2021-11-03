@@ -31,7 +31,7 @@ const openBigPicture = (photo) => {
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', pressEsc);
 
-  photo.comments.forEach((comment) => renderComments(comment));
+  photo.comments.forEach(renderComments);
 };
 
 

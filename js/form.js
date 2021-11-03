@@ -25,18 +25,16 @@ const pressEsc = (evt) => {
   }
 };
 
-const doCorrectHashtags = () => {
+const onInputHashtags = () => {
   const hashTags = inputHashtag.value;
-  const collectionWords = hashTags.trim().split(' ');
+  const collectionWords = hashTags.trim().split(/\s+/);
   if (collectionWords.length > 5){
     inputHashtag.setCustomValidity('Хэштегов должно быть не больше 5');
   } else if (collectionWords.length >= 1 && collectionWords.length <=  5) {
     collectionWords.forEach( (word) => {
-      const regExp = new RegExp (`${word}`, 'ig');
-      const matchHastag = hashTags.match(regExp);
-      if(!/^#[A-Za-z0-9А-Яа-яЁё]{1,19}$/.test(word)){
+      if(!/^#{1}[A-Za-z0-9А-Яа-яЁё]{1,19}$/.test(word)){
         inputHashtag.setCustomValidity('Хэштег должен начинаться с # и содержать только латинские и кириллические буквы и цифры');
-      }  else if((matchHastag.length >= 2) && (word === matchHastag[1])) {
+      }  else if((collectionWords.length >= 2) && collectionWords.slice(0, -1).includes(word)) {
         inputHashtag.setCustomValidity('Хэштеги одинаковыми быть не могут');
       } else {
         inputHashtag.setCustomValidity('');
@@ -48,12 +46,10 @@ const doCorrectHashtags = () => {
   inputHashtag.reportValidity();
 };
 
-const doCorrectComment = () =>{
-  const lengthComment = inputComment.value.split('').length;
+const onInputComment = () =>{
+  const lengthComment = inputComment.value.length;
   if (!getCorrectLength(lengthComment, 140)){
     inputComment.setCustomValidity(`Максимальная длина комментария 140 символов. Удалите ${lengthComment-140} символов для отправки`);
-  } else{
-    inputComment.setCustomValidity('');
   }
   inputComment.reportValidity();
 };
@@ -73,5 +69,5 @@ closeForm.addEventListener('click', () => {
   document.removeEventListener('keydown', pressEsc);
 });
 uploadImage.addEventListener('change', onInputFile);
-inputHashtag.addEventListener('input', doCorrectHashtags);
-inputComment.addEventListener('input', doCorrectComment);
+inputHashtag.addEventListener('input', onInputHashtags);
+inputComment.addEventListener('input', onInputComment);
