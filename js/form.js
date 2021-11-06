@@ -25,22 +25,26 @@ const onPressEsc = (evt) => {
   }
 };
 
-const onInputHashtags = () => {
+const onInputHashtags = () =>{
   const hashTags = inputHashtag.value;
-  const collectionWords = hashTags.trim().split(/\s+/);
-  for (let i = 0; i < collectionWords.length; i++) {
-    const word = collectionWords[i];
-    if (collectionWords.length >= 1 && collectionWords.length <=  5){
-      if (!/^#{1}[A-Za-z0-9А-Яа-яЁё]{1,19}$/.test(word)){
-        inputHashtag.setCustomValidity('Хэштег должен начинаться с # и содержать только латинские и кириллические буквы и цифры');
-      } else if((collectionWords.length >= 2) && collectionWords.slice(0, -1).includes(word)) {
-        inputHashtag.setCustomValidity('Хэштеги одинаковыми быть не могут');
-      } else { inputHashtag.setCustomValidity('');}
-    } else if (collectionWords.length > 5) {
-      inputHashtag.setCustomValidity('Хэштегов должно быть не больше 5');
-    } else  { inputHashtag.setCustomValidity('');}
-  }inputHashtag.reportValidity();
+  const collectionWords = hashTags.trim().split(' ');
+  const a = new Set(collectionWords);
+  const correctWord = (word) => !/^#[A-Za-z0-9А-Яа-яЁё]{1,19}$/.test(word);
+
+  if (collectionWords.length > 5) {
+    inputHashtag.setCustomValidity('Хэштегов должно быть не больше 5');
+  }
+  else if (collectionWords.some(correctWord)){
+    inputHashtag.setCustomValidity('Хэштег должен начинаться с # и содержать только латинские и кириллические буквы и цифры');
+  }
+  else if (a.size !== collectionWords.length) {
+    inputHashtag.setCustomValidity('Хэштеги одинаковыми быть не могут');
+  }
+  else  { inputHashtag.setCustomValidity('');}
+
+  inputHashtag.reportValidity();
 };
+
 
 const onInputComment = () =>{
   inputComment.setCustomValidity('');
