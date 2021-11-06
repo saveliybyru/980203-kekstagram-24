@@ -6,6 +6,8 @@ const changeFile = form.querySelector('.img-upload__overlay');
 const closeForm = form.querySelector('.img-upload__cancel');
 const inputHashtag = form.querySelector('.text__hashtags');
 const inputComment = form.querySelector('.text__description');
+const scaleLevelElement = document.querySelector('.scale__control--value');
+const photoElement = document.querySelector('.img-upload__preview img');
 
 
 const isEscape = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
@@ -56,6 +58,8 @@ const onInputComment = () =>{
 };
 
 const onInputFile = () => {
+  scaleLevelElement.value = '100%';
+  photoElement.style.transform = 'scale(1.0)';
   changeFile.classList.remove('hidden');
   document.body.classList.add('modal-open');
   document.addEventListener('keydown', onPressEsc);

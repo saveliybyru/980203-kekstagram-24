@@ -1,3 +1,5 @@
+import './form.js';
+import {} from './filters.js';
 import { renderComments } from './view-comment.js';
 const photoView = document.querySelector('.big-picture');
 const closeModal = photoView.querySelector('.big-picture__cancel');
@@ -25,6 +27,7 @@ const openBigPicture = (photo) => {
   likesCount.textContent = photo.likes;
   commentCounter.textContent = photo.comments.length;
   photoDescription.textContent = photo.description;
+
 
   photoView.classList.remove('hidden');
   commentLoader.classList.add('hidden');
