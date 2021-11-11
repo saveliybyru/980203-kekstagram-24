@@ -7,60 +7,85 @@ const effectIntensiveElement = document.querySelector('.effect-level__value');
 const sliderEffectLevelElement = document.querySelector('.effect-level__slider');
 const effectsVariantsElement = document.querySelector('.img-upload__effects');
 
-const currentEffect = {
-  'chrome':{
+const currentEffect =
+{
+  'chrome':
+  {
     'style' : 'grayscale',
-    'settings': {
-      range: {
+    'settings':
+    {
+      range:
+      {
         min: 0,
-        max: 1 },
+        max: 1,
+      },
       start: 1,
       step: 0.1,
-      connect: 'lower'},
+      connect: 'lower',
+    },
     'units' : '',
   },
-  'sepia':{
+  'sepia':
+  {
     'style' : 'sepia',
-    'settings': {
-      range: {
+    'settings':
+    {
+      range:
+      {
         min: 0,
-        max: 1 },
+        max: 1,
+      },
       start: 1,
       step: 0.1,
-      connect: 'lower'},
+      connect: 'lower',
+    },
     'units' : '',
   },
-  'marvin':{
+  'marvin':
+  {
     'style' : 'invert',
-    'settings': {
-      range: {
+    'settings':
+    {
+      range:
+      {
         min: 1,
-        max: 100 },
+        max: 100,
+      },
       start: 100,
       step: 1,
-      connect: 'lower'},
+      connect: 'lower',
+    },
     'units' : '%',
   },
-  'phobos':{
+  'phobos':
+  {
     'style' : 'blur',
-    'settings': {
-      range: {
+    'settings':
+    {
+      range:
+      {
         min: 0,
         max: 3 },
       start: 3,
       step: 0.1,
-      connect: 'lower'},
+      connect: 'lower',
+    },
     'units' : 'px',
   },
-  'heat': {
+  'heat':
+  {
     'style' : 'brightness',
-    'settings': {
-      range: {
+    'settings':
+    {
+      range:
+      {
         min: 1,
-        max: 3 },
+        max: 3,
+      },
       start: 3,
       step: 0.1,
-      connect: 'lower'},
+      connect: 'lower',
+    },
     'units' : '',
   },
 };
@@ -84,21 +109,26 @@ const onClickPlus = () => {
 
 const onApplyEffect = (evt) => {
   const effectName = evt.target.value;
-  if (effectName !== 'none'){
+  if (effectName === 'none'){
+    photoElement.className = '';
+    photoElement.style = '';
+    if (sliderEffectLevelElement.noUiSlider) {
+      sliderEffectLevelElement.noUiSlider.destroy();
+    }
+  }
+  else {
     if (evt.target.matches('.effects__radio')){
+      if (sliderEffectLevelElement.noUiSlider) {
+        sliderEffectLevelElement.noUiSlider.destroy();
+      }
       photoElement.className = '';
       photoElement.classList.add(`effects__preview--${effectName}`);
       noUiSlider.create(sliderEffectLevelElement, currentEffect[effectName].settings);
-      let volume;
       sliderEffectLevelElement.noUiSlider.on('update', (_, handle, unencoded) => {
-        volume = unencoded[handle];
+        const volume = unencoded[handle];
         photoElement.style = `filter:${currentEffect[effectName].style}(${volume}${currentEffect[effectName].units})`;
         effectIntensiveElement.value = volume;
       });
-    } else {
-      photoElement.className = '';
-      photoElement.style = '';
-      sliderEffectLevelElement.noUiSlider.destroy();
     }
   }
 };
